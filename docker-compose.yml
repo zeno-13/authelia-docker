@@ -63,7 +63,8 @@ services:
   redis:
     container_name: redis
     image: bitnami/redis:latest
-    volumes: ${DIR}/redis:/bitnami
+    volumes: 
+      - ${DIR}/redis:/bitnami
     networks:
       - backend
     restart: unless-stopped
