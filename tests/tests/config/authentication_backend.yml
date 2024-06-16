@@ -35,13 +35,13 @@ authentication_backend:
   ## This is the recommended Authentication Provider in production
   ## because it allows Authelia to offload the stateful operations
   ## onto the LDAP service.
-  ldap:
+  # ldap:
     ## The address of the directory server to connect to in the address common syntax.
     ## Format: [<scheme>://]<hostname>[:<port>].
     ## Square brackets indicate optional portions of the format. Scheme must be 'ldap', 'ldaps', or 'ldapi`.
     ## The default scheme is 'ldapi' if the address is an absolute path otherwise it's 'ldaps'.
     ## The default port is '636', unless the scheme is 'ldap' in which case it's '389'.
-    address: 'ldaps://127.0.0.1:636'
+    # address: 'ldaps://127.0.0.1:636'
 
     ## The LDAP implementation, this affects elements like the attribute utilised for resetting a password.
     ## Acceptable options are as follows:
@@ -54,13 +54,13 @@ authentication_backend:
     ## Depending on the option here certain other values in this section have a default value, notably all of the
     ## attribute mappings have a default value that this config overrides, you can read more about these default values
     ## at https://www.authelia.com/c/ldap#defaults
-    implementation: 'custom'
+    # implementation: 'custom'
 
     ## The dial timeout for LDAP in the duration common syntax.
-    timeout: '5 seconds'
+    # timeout: '5 seconds'
 
     ## Use StartTLS with the LDAP connection.
-    start_tls: false
+    # start_tls: false
 
     # tls:
       ## The server subject name to check the servers certificate against during the validation process.
@@ -188,19 +188,19 @@ authentication_backend:
   ##
   ## Important: Kubernetes (or HA) users must read https://www.authelia.com/t/statelessness
   ##
-  # file:
-    # path: /config/users_database.yml
+  file:
+    path: /config/users_database.yml
     # watch: false
     # search:
       # email: false
       # case_insensitive: false
-    # password:
-      # algorithm: argon2id
-      # iterations: 3
-      # memory: 2048
-      # parallelism: 4
-      # key_length: 32
-      # salt_length: 16
+    password:
+      algorithm: argon2id
+      iterations: 3
+      memory: 2048
+      parallelism: 4
+      key_length: 32
+      salt_length: 16
       # argon2:
         # variant: 'argon2id'
         # iterations: 3
