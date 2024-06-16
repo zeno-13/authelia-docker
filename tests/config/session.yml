@@ -89,9 +89,9 @@ session:
   ##
   ## Important: Kubernetes (or HA) users must read https://www.authelia.com/t/statelessness
   ##
-  # redis:
-    # host: '127.0.0.1'
-    # port: 6379
+  redis:
+    host: '127.0.0.1'
+    port: 6379
     ## Use a unix socket instead
     # host: '/var/run/redis/redis.sock'
 
@@ -102,13 +102,13 @@ session:
     # password: 'authelia'
 
     ## This is the Redis DB Index https://redis.io/commands/select (sometimes referred to as database number, DB, etc).
-    # database_index: 0
+    database_index: 0
 
     ## The maximum number of concurrent active connections to Redis.
-    # maximum_active_connections: 8
+    maximum_active_connections: 8
 
     ## The target number of idle connections to have open ready for work. Useful when opening connections is slow.
-    # minimum_idle_connections: 0
+    minimum_idle_connections: 0
 
     ## The Redis TLS configuration. If defined will require a TLS connection to the Redis instance(s).
     # tls:
