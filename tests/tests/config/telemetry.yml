@@ -1,0 +1,48 @@
+# yamllint disable rule:comments-indentation
+---
+###############################################################################
+##                           Authelia Configuration                          ##
+###############################################################################
+
+##
+## Telemetry Configuration
+##
+# telemetry:
+
+  ##
+  ## Metrics Configuration
+  ##
+  # metrics:
+    ## Enable Metrics.
+    # enabled: false
+
+    ## The address for the Metrics server to listen on in the address common syntax.
+    ## Formats:
+    ##  - [<scheme>://]<hostname>[:<port>][/<path>]
+    ##  - [<scheme>://][hostname]:<port>[/<path>]
+    ## Square brackets indicate optional portions of the format. Scheme must be 'tcp', 'tcp4', 'tcp6', or 'unix'.
+    ## The default scheme is 'unix' if the address is an absolute path otherwise it's 'tcp'. The default port is '9959'.
+    ## If the path is not specified it defaults to `/metrics`.
+    # address: 'tcp://:9959/metrics'
+
+    ## Metrics Server Buffers configuration.
+    # buffers:
+
+      ## Read buffer.
+      # read: 4096
+
+      ## Write buffer.
+      # write: 4096
+
+    ## Metrics Server Timeouts configuration.
+    # timeouts:
+
+      ## Read timeout in the duration common syntax.
+      # read: '6 seconds'
+
+      ## Write timeout in the duration common syntax.
+      # write: '6 seconds'
+
+      ## Idle timeout in the duration common syntax.
+      # idle: '30 seconds'
+...
