@@ -1,0 +1,71 @@
+version: '3.8'
+
+networks:
+  proxy:
+    driver: bridge
+    external: true
+  backend:
+  
+secrets:
+  JWT_SECRET:
+    file: ${DIR}/secrets/JWT_SECRET
+  SESSION_SECRET:
+    file: ${DIR}/secrets/SESSION_SECRET
+  STORAGE_ENCRYPTION_KEY:
+    file: ${DIR}/secrets/STORAGE_ENCRYPTION_KEY
+  SMTP_PASSWORD:
+    file: ${DIR}/secrets/SMTP_PASSWORD
+    
+services:
+
+  authelia:
+    container_name: authelia
+    image: authelia/authelia:latest
+    restart: unless-stopped
+    ports:
+      - 9091:9091
+    volumes:
+      - ${DIR}/config:/config
+    command:
+      - 'authelia'
+      - '--config=/config/access_control.yaml'
+      - '--config=/config/authentication_backend.yaml'
+      - '--config=/config/duo.yaml'
+      - '--config=/config/identity_providers.yaml'
+      - '--config=/config/identity_validation.yaml'
+      - '--config=/config/log.yaml'
+      - '--config=/config/notifier.yaml'
+      - '--config=/config/ntp.yaml'
+      - '--config=/config/password_policy.yaml'
+      - '--config=/config/privacy_policy.yaml'
+      - '--config=/config/regulation.yaml'
+      - '--config=/config/server.yaml'
+      - '--config=/config/session.yaml'
+      - '--config=/config/storage.yaml'
+      - '--config=/config/telemetry.yaml'
+      - '--config=/config/totp.yaml'
+      - '--config=/config/webauthn.yaml'
+    secrets: 
+      - JWT_SECRET
+      - SESSION_SECRET
+      - STORAGE_ENCRYPTION_KEY
+      - SMTP_PASSWORD
+    environment:
+      AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE: /run/secrets/JWT_SECRET
+      AUTHELIA_SESSION_SECRET_FILE: /run/secrets/SESSION_SECRET
+      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: /run/secrets/STORAGE_ENCRYPTION_KEY
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: /run/secrets/SMTP_PASSWORD
+      TZ: America/New_York
+    networks:
+      - proxy
+      - backend
+
+  redis:
+    container_name: redis
+    image: bitnami/redis:latest
+    volumes: 
+      - ${DIR}/redis:/bitnami
+    networks:
+      - backend
+    restart: unless-stopped
+    
