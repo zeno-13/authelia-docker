@@ -28,6 +28,7 @@ services:
       - ${DIR}/config:/config
     command:
       - 'authelia'
+      - '--config=/config/configuration.yaml'
       - '--config=/config/access_control.yaml'
       - '--config=/config/authentication_backend.yaml'
       - '--config=/config/duo.yaml'
