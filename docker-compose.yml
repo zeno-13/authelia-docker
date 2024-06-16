@@ -28,7 +28,23 @@ services:
       - ${DIR}/config:/config
     command:
       - 'authelia'
-      - '--config=/config/configuration.yaml'
+      - '--config=/config/access_control.yaml'
+      - '--config=/config/authentication_backend.yaml'
+      - '--config=/config/duo.yaml'
+      - '--config=/config/identity_providers.yaml'
+      - '--config=/config/identity_validation.yaml'
+      - '--config=/config/log.yaml'
+      - '--config=/config/notifier.yaml'
+      - '--config=/config/ntp.yaml'
+      - '--config=/config/password_policy.yaml'
+      - '--config=/config/privacy_policy.yaml'
+      - '--config=/config/regulation.yaml'
+      - '--config=/config/server.yaml'
+      - '--config=/config/session.yaml'
+      - '--config=/config/storage.yaml'
+      - '--config=/config/telemetry.yaml'
+      - '--config=/config/totp.yaml'
+      - '--config=/config/webauthn.yaml'
     secrets: 
       - JWT_SECRET
       - SESSION_SECRET
@@ -43,3 +59,12 @@ services:
     networks:
       - proxy
       - backend
+
+  redis:
+    container_name: redis
+    image: bitnami/redis:latest
+    volumes: ${DIR}/redis:/bitnami
+    networks:
+      - backend
+    restart: unless-stopped
+    
