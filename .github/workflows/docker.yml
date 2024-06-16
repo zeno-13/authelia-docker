@@ -26,6 +26,7 @@ jobs:
     - name: Set env
       run: |
         echo "DIR=./tests" >> $GITHUB_ENV
+        echo "REDIS_PASSWORD=test_password" >> $GITHUB_ENV
 
     - name: Create networks
       run: docker network create -d bridge proxy
