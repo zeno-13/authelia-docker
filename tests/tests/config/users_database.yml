@@ -1,0 +1,8 @@
+users:
+  root:
+    displayname: root
+    # password is password
+    password: $argon2id$v=19$m=2048,t=3,p=4$Z3g2dHZPYnFydFpSUGxMNw$YuNVD+wEJjbheeMu/fl9gm1tWOFOYt/zK0repNUdPrk
+    email: email@example.com
+    groups:
+      - admin
