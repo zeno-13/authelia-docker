@@ -1,0 +1,45 @@
+version: '3.8'
+
+networks:
+  proxy:
+    driver: bridge
+    external: true
+  backend:
+  
+secrets:
+  JWT_SECRET:
+    file: ${DIR}/secrets/JWT_SECRET
+  SESSION_SECRET:
+    file: ${DIR}/secrets/SESSION_SECRET
+  STORAGE_ENCRYPTION_KEY:
+    file: ${DIR}/secrets/STORAGE_ENCRYPTION_KEY
+  SMTP_PASSWORD:
+    file: ${DIR}/secrets/SMTP_PASSWORD
+    
+services:
+
+  authelia:
+    container_name: authelia
+    image: authelia/authelia:latest
+    restart: unless-stopped
+    ports:
+      - 9091:9091
+    volumes:
+      - ${DIR}/config:/config
+    command:
+      - 'authelia'
+      - '--config=/config/configuration.yaml'
+    secrets: 
+      - JWT_SECRET
+      - SESSION_SECRET
+      - STORAGE_ENCRYPTION_KEY
+      - SMTP_PASSWORD
+    environment:
+      AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET_FILE: /run/secrets/JWT_SECRET
+      AUTHELIA_SESSION_SECRET_FILE: /run/secrets/SESSION_SECRET
+      AUTHELIA_STORAGE_ENCRYPTION_KEY_FILE: /run/secrets/STORAGE_ENCRYPTION_KEY
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: /run/secrets/SMTP_PASSWORD
+      TZ: America/New_York
+    networks:
+      - proxy
+      - backend
